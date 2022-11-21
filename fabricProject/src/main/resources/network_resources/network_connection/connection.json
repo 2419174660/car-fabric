@@ -1,0 +1,326 @@
+{
+  "name": "fabric",
+  "version": "1.4.1",
+  "dependencies": {
+  },
+  "client": {
+    "organization": "Enterprise01",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "supplychannelone": {
+      "orderers": [
+        "orderer.example.com"
+      ],
+      "peers": {
+        "peer0.org1.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org1.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.org2.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org2.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      }
+    },
+    "supplychanneltwo": {
+      "orderers": [
+        "orderer.example.com"
+      ],
+      "peers": {
+        "peer0.org1.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org1.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.org2.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org2.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      }
+    },
+    "supplychannelthree": {
+      "orderers": [
+        "orderer.example.com"
+      ],
+      "peers": {
+        "peer0.org1.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org1.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.org2.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org2.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      }
+    },
+    "marketingchannel": {
+      "orderers": [
+        "orderer.example.com"
+      ],
+      "peers": {
+        "peer0.org3.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org3.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.org4.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org4.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      }
+    },
+    "servicechannel": {
+      "orderers": [
+        "orderer.example.com"
+      ],
+      "peers": {
+        "peer0.org4.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org4.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.org5.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.org5.example.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      }
+    }
+  },
+  "organizations": {
+    "ChannelAdminOrg": {
+      "mspid": "ChannelAdminOrg",
+      "peers": [
+        "peer0.ChannelAdminOrg.example.com",
+        "peer1.ChannelAdminOrg.example.com"
+      ]
+    },
+    "Enterprise01": {
+      "mspid": "Enterprise01",
+      "peers": [
+        "peer0.org1.example.com",
+        "peer1.org1.example.com"
+      ]
+    },
+    "Enterprise02": {
+      "mspid": "Enterprise02",
+      "peers": [
+        "peer0.org2.example.com",
+        "peer1.org2.example.com"
+      ]
+    },
+    "Enterprise03": {
+      "mspid": "Enterprise03",
+      "peers": [
+        "peer0.org3.example.com",
+        "peer1.org3.example.com"
+      ]
+    },
+    "Enterprise04": {
+      "mspid": "Enterprise04",
+      "peers": [
+        "peer0.org4.example.com",
+        "peer1.org4.example.com"
+      ]
+    },
+    "Enterprise05": {
+      "mspid": "Enterprise05",
+      "peers": [
+        "peer0.org5.example.com",
+        "peer1.org5.example.com"
+      ]
+    }
+  },
+  "orderers": {
+    "orderer.example.com": {
+      "url": "grpc://localhost:7050",
+      "mspid": "OrdererMSP",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer.example.com",
+        "hostnameOverride": "orderer.example.com"
+      }
+    }
+  },
+  "peers": {
+    "peer0.ChannelAdminOrg.example.com": {
+      "url": "grpc://localhost:6051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.ChannelAdminOrg.example.com",
+        "hostnameOverride": "peer0.ChannelAdminOrg.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer1.ChannelAdminOrg.example.com": {
+      "url": "grpc://localhost:6056",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.ChannelAdminOrg.example.com",
+        "hostnameOverride": "peer1.ChannelAdminOrg.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer0.org1.example.com": {
+      "url": "grpc://localhost:7051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org1.example.com",
+        "hostnameOverride": "peer0.org1.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer1.org1.example.com": {
+      "url": "grpc://localhost:7056",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.org1.example.com",
+        "hostnameOverride": "peer1.org1.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer0.org2.example.com": {
+      "url": "grpc://localhost:8051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org2.example.com",
+        "hostnameOverride": "peer0.org2.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer1.org2.example.com": {
+      "url": "grpc://localhost:8056",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.org2.example.com",
+        "hostnameOverride": "peer1.org2.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer0.org3.example.com": {
+      "url": "grpc://localhost:9051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org3.example.com",
+        "hostnameOverride": "peer0.org3.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer1.org3.example.com": {
+      "url": "grpc://localhost:9056",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.org3.example.com",
+        "hostnameOverride": "peer1.org3.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer0.org4.example.com": {
+      "url": "grpc://localhost:10051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org4.example.com",
+        "hostnameOverride": "peer0.org4.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer1.org4.example.com": {
+      "url": "grpc://localhost:10056",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.org4.example.com",
+        "hostnameOverride": "peer1.org4.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer0.org5.example.com": {
+      "url": "grpc://localhost:11051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org5.example.com",
+        "hostnameOverride": "peer0.org5.example.com",
+        "request-timeout": 120001
+      }
+    },
+    "peer1.org5.example.com": {
+      "url": "grpc://localhost:11056",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.org5.example.com",
+        "hostnameOverride": "peer1.org5.example.com",
+        "request-timeout": 120001
+      }
+    }
+  }
+}

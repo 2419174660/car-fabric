@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>供应链业务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Nazox is a fully featured premium Vuejs admin dashboard template built on top of awesome Bootstrap 4.4.1" name="description" />
+    <meta content="ThemesDesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body data-sidebar="dark">
+
+<!-- Begin page -->
+<div id="root">
+
+    <header id="page-topbar">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <!-- LOGO -->
+                <div class="navbar-brand-box">
+
+                    <a href="index.html" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="assets/images/logo-sm-light.png" alt="" height="22">
+                            </span>
+                        <span class="logo-lg">
+                                <img src="assets/images/logo-light.png" alt="" height="20">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="d-flex">
+
+                <div class="d-inline-block">
+                    <h5><span class="badge badge-danger float-right">v1.0.0</span></h5>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="vertical-menu">
+        <div>
+                <span style="margin-top: 50px;margin-left: 15px">
+                    <img src="assets/images/user06.png" alt="" height="65px" style="border-radius:100%">
+                </span>
+            <span id="curUserName" style="color: #03a9f3;margin-bottom: 10px;margin-left: 10px;font-size: medium">用户{{curUserName}}</span>
+        </div>
+        <div data-simplebar class="h-100">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title">用户</li>
+
+                    <li>
+                        <a href="index.html" class="waves-effect">
+                            <i class="mdi mdi-file-document-box-outline"></i>
+                            <span>首页</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="userLogin1.html" class=" waves-effect">
+                            <i class="mdi mdi-settings-outline"></i>
+                            <span>用户登录</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title">管理员</li>
+
+                    <li>
+                        <a href="channelManage1.html" class=" waves-effect">
+                            <i class="mdi mdi-flip-horizontal"></i>
+                            <span>区块链管理</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="peerManage1.html" class=" waves-effect">
+                            <i class="mdi mdi-flip-vertical"></i>
+                            <span>节点管理</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="chaincodeManage1.html" class=" waves-effect">
+                            <i class="mdi mdi-flip-horizontal"></i>
+                            <span>合约部署</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title">合约调用</li>
+
+                    <li>
+                        <a href="search1.html" class=" waves-effect">
+                            <i class="mdi mdi-wechat"></i>
+                            <span>业务数据查询</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="supplychain1.html" class=" waves-effect">
+                            <i class="mdi mdi-web"></i>
+                            <span>供应链业务</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="emptypage.html" class=" waves-effect">
+                            <i class="mdi mdi-format-list-bulleted"></i>
+                            <span>营销链业务</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="emptypage.html" class=" waves-effect">
+                            <i class="mdi mdi-weather-night"></i>
+                            <span>服务链业务</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Sidebar -->
+        </div>
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-------采购业务------->
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="p-lg-3">
+                            <!--===================================主页内容写这里-===================================-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">采购记录上链</h4>
+                                            <form class="needs-validation">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label >选择记账的供应链</label>
+                                                            <select class="custom-select" v-model="purchaseChannel">
+                                                                <option selected>supplychannelone</option>
+                                                                <option>supplychanneltwo</option>
+                                                                <option>supplychannelthree</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>订单编号</label>
+                                                            <input
+                                                                    v-model="ddbh1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>物料编号</label>
+                                                            <input
+                                                                    v-model="wlbh1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>物料描述</label>
+                                                            <input
+                                                                    v-model="wlms1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>采购企业</label>
+                                                            <input
+                                                                    v-model="cgqy1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>采购数量</label>
+                                                            <input
+                                                                    id="purchaseNum"
+                                                                    v-model="cgsl1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>单价</label>
+                                                            <input
+                                                                    id="price"
+                                                                    v-model="dj1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>采购时间</label>
+                                                            <input
+                                                                    v-model="cgsj1"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" @click="sendPurchase" type="button">提交业务数据</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane">
+                                                        <h4 class="card-title">操作结果</h4>
+                                                        <p class="card-title-desc" style="color: #03a9f3">{{failMsg1}}</p>
+                                                    </div>
+                                                    <div class="table-responsive mt-3">
+                                                        <table
+                                                                class="table table-centered datatable dt-responsive nowrap"
+                                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                                                v-if="success1"
+                                                        >
+                                                            <thead class="thead-light">
+                                                            <tr>
+                                                                <th>节点名称</th>
+                                                                <th>节点IP</th>
+                                                                <th>上链结果</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr v-for="(item, index) in resultList1">
+                                                                    <td>{{item.name}}</td>
+                                                                    <td>{{item.url}}</td>
+                                                                    <td>{{item.msg}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                            </div>
+                        </div> <!-- end padding-->
+
+                    </div>
+                    <!--end card body-->
+                </div> <!-- end card-->
+                <!-------结算业务------->
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="p-lg-3">
+                            <!--===================================主页内容写这里-===================================-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">结算记录上链</h4>
+                                            <form class="needs-validation">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label >选择记账的供应链</label>
+                                                            <select class="custom-select" v-model="settleChannel">
+                                                                <option selected>supplychannelone</option>
+                                                                <option>supplychanneltwo</option>
+                                                                <option>supplychannelthree</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>订单编号</label>
+                                                            <input
+                                                                    v-model="ddbh2"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>物料编号</label>
+                                                            <input
+                                                                    v-model="wlbh2"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>结算方式</label>
+                                                            <input
+                                                                    v-model="jsfs2"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>结算日期</label>
+                                                            <input
+                                                                    v-model="jsrq2"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" @click="sendSettlement" type="button">提交业务数据</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane">
+                                                        <h4 class="card-title">操作结果</h4>
+                                                        <p class="card-title-desc" style="color: #03a9f3">{{failMsg2}}</p>
+                                                    </div>
+                                                    <div class="table-responsive mt-3">
+                                                        <table
+                                                                class="table table-centered datatable dt-responsive nowrap"
+                                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                                                v-if="success2"
+                                                        >
+                                                            <thead class="thead-light">
+                                                            <tr>
+                                                                <th>节点名称</th>
+                                                                <th>节点IP</th>
+                                                                <th>上链结果</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr v-for="(item, index) in resultList2">
+                                                                    <td>{{item.name}}</td>
+                                                                    <td>{{item.url}}</td>
+                                                                    <td>{{item.msg}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                            </div>
+                        </div> <!-- end padding-->
+
+                    </div>
+                    <!--end card body-->
+                </div> <!-- end card-->
+
+                <!-------仓储业务------->
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="p-lg-3">
+                            <!--===================================主页内容写这里-===================================-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">仓储记录上链</h4>
+                                            <form class="needs-validation">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label >选择记账的供应链</label>
+                                                            <select class="custom-select" v-model="wareChannel">
+                                                                <option selected>supplychannelone</option>
+                                                                <option>supplychanneltwo</option>
+                                                                <option>supplychannelthree</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>订单编号</label>
+                                                            <input
+                                                                    v-model="ddbh3"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>物料编号</label>
+                                                            <input
+                                                                    v-model="wlbh3"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>库区</label>
+                                                            <input
+                                                                    v-model="kq3"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>仓位</label>
+                                                            <input
+                                                                    v-model="cw3"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>仓储时间</label>
+                                                            <input
+                                                                    v-model="ccsj3"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" @click="sendWarehouse" type="button">提交业务数据</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane">
+                                                        <h4 class="card-title">操作结果</h4>
+                                                        <p class="card-title-desc" style="color: #03a9f3">{{failMsg3}}</p>
+                                                    </div>
+                                                    <div class="table-responsive mt-3">
+                                                        <table
+                                                                class="table table-centered datatable dt-responsive nowrap"
+                                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                                                v-if="success3"
+                                                        >
+                                                            <thead class="thead-light">
+                                                            <tr>
+                                                                <th>节点名称</th>
+                                                                <th>节点IP</th>
+                                                                <th>上链结果</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item, index) in resultList3">
+                                                                <td>{{item.name}}</td>
+                                                                <td>{{item.url}}</td>
+                                                                <td>{{item.msg}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                            </div>
+                        </div> <!-- end padding-->
+
+                    </div>
+                    <!--end card body-->
+                </div> <!-- end card-->
+
+                <!-------制造业务------->
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="p-lg-3">
+                            <!--===================================主页内容写这里-===================================-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">制造记录上链</h4>
+                                            <form class="needs-validation">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label >选择记账的供应链</label>
+                                                            <select class="custom-select" v-model="makingChannel">
+                                                                <option selected>supplychannelone</option>
+                                                                <option>supplychanneltwo</option>
+                                                                <option>supplychannelthree</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>订单编号</label>
+                                                            <input
+                                                                    v-model="ddbh4"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>物料编号</label>
+                                                            <input
+                                                                    v-model="wlbh4"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>消耗物料数量</label>
+                                                            <input
+                                                                    v-model="xhwl4"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>汽车Vin号</label>
+                                                            <input
+                                                                    v-model="vin4"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>制造商名称</label>
+                                                            <input
+                                                                    v-model="zzs4"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>制造时间</label>
+                                                            <input
+                                                                    v-model="time4"
+                                                                    type="text"
+                                                                    class="form-control"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" @click="sendMaking" type="button">提交业务数据</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane">
+                                                        <h4 class="card-title">操作结果</h4>
+                                                        <p class="card-title-desc" style="color: #03a9f3">{{failMsg4}}</p>
+                                                    </div>
+                                                    <div class="table-responsive mt-3">
+                                                        <table
+                                                                class="table table-centered datatable dt-responsive nowrap"
+                                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                                                v-if="success4"
+                                                        >
+                                                            <thead class="thead-light">
+                                                            <tr>
+                                                                <th>节点名称</th>
+                                                                <th>节点IP</th>
+                                                                <th>上链结果</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item, index) in resultList4">
+                                                                <td>{{item.name}}</td>
+                                                                <td>{{item.url}}</td>
+                                                                <td>{{item.msg}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                                <!-- end col -->
+                            </div>
+                        </div> <!-- end padding-->
+
+                    </div>
+                    <!--end card body-->
+                </div> <!-- end card-->
+
+            </div> <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-right d-none d-sm-block">
+                            价值链协同区块链演示界面
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- JAVASCRIPT -->
+<script src="assets/libs/jquery/jquery.min.js"></script>
+<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="assets/libs/simplebar/simplebar.min.js"></script>
+<script src="assets/libs/node-waves/waves.min.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/axios.min.js"></script>
+
+<script src="assets/js/app.js"></script>
+
+<script>
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            curUserName:'',
+            purchaseChannel:'',
+            settleChannel:'',
+            wareChannel:'',
+            makingChannel:'',
+            success1:false,
+            success2:false,
+            success3:false,
+            success4:false,
+            failMsg1:'',
+            failMsg2:'',
+            failMsg3:'',
+            failMsg4:'',
+            resultList1:[],
+            resultList2:[],
+            resultList3:[],
+            resultList14:[],
+            ddbh1:'450011111705',
+            wlbh1:'401111115CDB',
+            wlms1:'关于物料的相关描述信息',
+            cgqy1:'Org1',
+            cgsl1:'666',
+            dj1:'888',
+            cgsj1:'2022-2-2',
+            ddbh2:'450011111705',
+            wlbh2:'401111115CDB',
+            jsfs2:'承兑汇票',
+            jsrq2:'2022-2-10',
+            ddbh3:'450011111705',
+            wlbh3:'401111115CDB',
+            kq3:'AS1-TT2',
+            cw3:'AS1-TT2-TA2',
+            ccsj3:'2022-2-15',
+            ddbh4:'450011111705',
+            wlbh4:'401111115CDB',
+            xhwl4:'100',
+            vin4:'L6T22222222221259',
+            zzs4:'Org2',
+            time4:'2022-2-20'
+        },
+        watch:{
+
+        },
+        methods:{
+            getCurUser:function(){
+                if(localStorage.getItem("curMspid")!=null){
+                    this.curUserName = localStorage.getItem("curUserName");
+                }else{
+                    //初始化用户信息
+                    this.curUserName = '未登录用户';
+                    localStorage.setItem("curUserName", "未登录用户");
+                    localStorage.setItem("curMspid", "请登录");
+                    localStorage.setItem("curAuthority", "请登录");
+                    localStorage.setItem("curUserConfPath", "");
+                }
+            },
+            sendPurchase:function (){
+                var _this = this;
+                _this.success1 = false;
+                _this.failMsg1 = '';
+                //向后台请求
+                axios({
+                    method:'post',
+                    url:'http://'+window.location.host+'/fabricProject_war_exploded/supplyPurchase',
+                    contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                    params:{
+                        userConfigPath : localStorage.getItem('curUserConfPath'),
+                        PurchaseCode:_this.ddbh1,
+                        MaterialCode:_this.wlbh1,
+                        Description:_this.wlms1,
+                        Owner:_this.cgqy1,
+                        PurchaseNumber:_this.cgsl1,
+                        Price:_this.dj1,
+                        Datetime:_this.cgsj1,
+                        SelectedChannel:_this.purchaseChannel
+                    }
+                }).then(function (data) {
+                    var jsonData = eval(data).data;
+                    if(jsonData==""){
+                        _this.failMsg1 = "记账失败！请检查业务数据格式是否正确";
+                        _this.success1 = false;
+                    }else{
+                        _this.failMsg1 = '';
+                        _this.resultList1 = jsonData;
+                        _this.success1 = true;
+                    }
+                })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            sendSettlement:function (){
+                var _this = this;
+                _this.success2 = false;
+                _this.failMsg2 = '';
+                //向后台请求
+                axios({
+                    method:'post',
+                    url:'http://'+window.location.host+'/fabricProject_war_exploded/supplySettlement',
+                    contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                    params:{
+                        userConfigPath : localStorage.getItem('curUserConfPath'),
+                        PurchaseCode:_this.ddbh2,
+                        MaterialCode:_this.wlbh2,
+                        SettlementMethod:_this.jsfs2,
+                        SettlementDatetime:_this.jsrq2,
+                        SelectedChannel:_this.settleChannel
+                    }
+                }).then(function (data) {
+                    var jsonData = eval(data).data;
+                    if(jsonData===""){
+                        _this.failMsg2 = "记账失败！请检查业务数据格式是否正确";
+                        _this.success2 = false;
+                    }else{
+                        _this.failMsg2 = '';
+                        _this.resultList2 = jsonData;
+                        _this.success2 = true;
+                    }
+                })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            sendWarehouse:function (){
+                var _this = this;
+                _this.success3 = false;
+                _this.failMsg3 = '';
+                //向后台请求
+                axios({
+                    method:'post',
+                    url:'http://'+window.location.host+'/fabricProject_war_exploded/supplyWarehouse',
+                    contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                    params:{
+                        userConfigPath : localStorage.getItem('curUserConfPath'),
+                        PurchaseCode:_this.ddbh3,
+                        MaterialCode:_this.wlbh3,
+                        WarehouseReservoir:_this.kq3,
+                        WarehousePosition:_this.cw3,
+                        Datetime:_this.ccsj3,
+                        SelectedChannel:_this.wareChannel
+                    }
+                }).then(function (data) {
+                    var jsonData = eval(data).data;
+                    if(jsonData===""){
+                        _this.failMsg3 = "记账失败！请检查业务数据格式是否正确";
+                        _this.success3 = false;
+                    }else{
+                        _this.failMsg3 = '';
+                        _this.resultList3 = jsonData;
+                        _this.success3 = true;
+                    }
+                })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            sendMaking:function (){
+                var _this = this;
+                _this.success4 = false;
+                _this.failMsg4 = '';
+                //向后台请求
+                axios({
+                    method:'post',
+                    url:'http://'+window.location.host+'/fabricProject_war_exploded/supplyMaking',
+                    contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                    params:{
+                        userConfigPath : localStorage.getItem('curUserConfPath'),
+                        PurchaseCode:_this.ddbh4,
+                        MaterialCode:_this.wlbh4,
+                        CostNumber:_this.xhwl4,
+                        VinCode:_this.vin4,
+                        Make:_this.zzs4,
+                        Datetime:_this.time4,
+                        SelectedChannel:_this.makingChannel
+                    }
+                }).then(function (data) {
+                    var jsonData = eval(data).data;
+                    console.log(eval(data))
+                    if(jsonData===""){
+                        _this.failMsg4 = "记账失败！请检查业务数据格式是否正确";
+                        _this.success4 = false;
+                    }else{
+                        _this.failMsg4 = '';
+                        _this.resultList4 = jsonData;
+                        _this.success4 = true;
+                    }
+                })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            }
+        },
+        mounted(){
+            this.getCurUser();
+        }
+    })
+</script>
+
+</body>
+
+</html>

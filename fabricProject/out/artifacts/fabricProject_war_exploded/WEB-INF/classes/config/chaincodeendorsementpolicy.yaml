@@ -1,0 +1,56 @@
+#
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+---
+# A Shotgun policy xx
+identities:  # list roles to be used in the policy
+    user1: {"role": {"name": "member", "mspId": "Enterprise01"}} # role member in org with mspid Org1MSP
+    user2: {"role": {"name": "member", "mspId": "Enterprise02"}}
+    user3: {"role": {"name": "member", "mspId": "Enterprise03"}}
+    user4: {"role": {"name": "member", "mspId": "Enterprise04"}}
+    user5: {"role": {"name": "member", "mspId": "Enterprise05"}}
+    admin1: {"role": {"name": "admin", "mspId": "Enterprise01"}} # admin role.
+    admin2: {"role": {"name": "admin", "mspId": "Enterprise02"}}
+    admin3: {"role": {"name": "admin", "mspId": "Enterprise03"}}
+    admin4: {"role": {"name": "admin", "mspId": "Enterprise04"}}
+    admin5: {"role": {"name": "admin", "mspId": "Enterprise05"}}
+    peer10: {"role": {"name": "peer", "mspId": "Enterprise01"}}
+    peer11: {"role": {"name": "peer", "mspId": "Enterprise01"}}
+    peer20: {"role": { "name": "peer", "mspId": "Enterprise02" }}
+    peer21: {"role": { "name": "peer", "mspId": "Enterprise02" }}
+    peer30: {"role": { "name": "peer", "mspId": "Enterprise03" }}
+    peer31: {"role": { "name": "peer", "mspId": "Enterprise03" }}
+    peer40: {"role": { "name": "peer", "mspId": "Enterprise04" }}
+    peer41: {"role": { "name": "peer", "mspId": "Enterprise04" }}
+    peer50: {"role": { "name": "peer", "mspId": "Enterprise05" }}
+    peer51: {"role": { "name": "peer", "mspId": "Enterprise05" }}
+
+policy: # the policy  .. could have been flat but show grouping.
+    1-of: # signed by one of these groups  can be <n>-of  where <n> is any digit 2-of, 3-of etc..
+      - 1-of:
+        - signed-by: "user1" # a reference to one of the identities defined above.
+        - signed-by: "admin1"
+        - signed-by: "peer10"
+        - signed-by: "peer11"
+      - 1-of:
+        - signed-by: "user2"
+        - signed-by: "admin2"
+        - signed-by: "peer20"
+        - signed-by: "peer21"
+      - 1-of:
+        - signed-by: "user3"
+        - signed-by: "admin3"
+        - signed-by: "peer30"
+        - signed-by: "peer31"
+      - 1-of:
+        - signed-by: "user4"
+        - signed-by: "admin4"
+        - signed-by: "peer40"
+        - signed-by: "peer41"
+      - 1-of:
+        - signed-by: "user5"
+        - signed-by: "admin5"
+        - signed-by: "peer50"
+        - signed-by: "peer51"

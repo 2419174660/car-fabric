@@ -1,0 +1,52 @@
+{
+  "Enterprise01": [
+    {
+      "name": "peer0.org1.example.com",
+      "url": "grpc://localhost:7051"
+    },
+    {
+      "name": "peer1.org1.example.com",
+      "url": "grpc://localhost:7056"
+    }
+  ],
+  "Enterprise02": [
+    {
+      "name": "peer0.org2.example.com",
+      "url": "grpc://localhost:8051"
+    },
+    {
+      "name": "peer1.org2.example.com",
+      "url": "grpc://localhost:8056"
+    }
+  ],
+  "Enterprise03": [
+    {
+      "name": "peer0.org3.example.com",
+      "url": "grpc://localhost:9051"
+    },
+    {
+      "name": "peer1.org3.example.com",
+      "url": "grpc://localhost:9056"
+    }
+  ],
+  "Enterprise04": [
+    {
+      "name": "peer0.org4.example.com",
+      "url": "grpc://localhost:10051"
+    },
+    {
+      "name": "peer1.org4.example.com",
+      "url": "grpc://localhost:10056"
+    }
+  ],
+  "Enterprise05": [
+    {
+      "name": "peer0.org5.example.com",
+      "url": "grpc://localhost:11051"
+    },
+    {
+      "name": "peer1.org5.example.com",
+      "url": "grpc://localhost:11056"
+    }
+  ]
+}

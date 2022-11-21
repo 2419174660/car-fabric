@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>合约管理操作界面</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/amazeui.css" />
+    <link rel="stylesheet" href="assets/css/common.min.css" />
+    <link rel="stylesheet" href="assets/css/index.min.css" />
+    <script src="assets/js/jquery.min.js"></script>
+</head>
+
+<body data-type="index">
+<script src="assets/js/theme.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+    //从后端请求数据并展示
+    $(document).ready(function(){
+        if(localStorage.getItem("curMspid")!=null){
+            var n = "<i class=\"am-icon-circle-o am-text-success tpl-user-panel-status-icon\"></i>"+localStorage.getItem("curUserName");
+            var e = "所属企业：<i>"+localStorage.getItem("curMspid")+"</i>";
+            var a = "权限：<i>"+localStorage.getItem("curAuthority")+"</i>";
+
+            $("#curUserName").append(n);
+            $("#myEnterprise").append(e);
+            $("#myAuthority").append(a);
+        }else{
+            //初始化用户信息
+            localStorage.setItem("curUserName", "未登录用户");
+            localStorage.setItem("curMspid", "请登录");
+            localStorage.setItem("curAuthority", "请登录");
+            localStorage.setItem("curUserConfPath", "");
+        }
+
+        $.ajax({
+            type:'POST',
+            url:'http://'+window.location.host+'/fabricProject_war_exploded/getChannel',
+            contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+            data:{},
+            success:function(data){
+                console.log("请求成功");
+                console.log(data);
+                var jsonData = eval(data);
+                for(var i = 0; i < jsonData.length; i++) {
+                    var channel = jsonData[i];
+                    //select标签添加数据
+                    var s = "<option>"+channel+"</option>";
+                    $("#seletMaterialChannel").append(s);
+                    $("#seletCarChannel").append(s);
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown){
+                console.log(errorThrown);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log("请求失败");
+            }
+        });
+    });
+
+</script>
+
+
+
+
+<script>
+    //物料信息查询
+    function sendMid(){
+        $("#materialTitle").text("查询中，请等待。。。");
+        var id = document.getElementById("materialID").value;
+
+        //select选中的索引
+        var index = document.getElementById("seletMaterialChannel").selectedIndex;
+        //新加一个选择的通道
+        var selectedChannel = document.getElementById("seletMaterialChannel").options[index].text;
+        console.log(selectedChannel);
+
+        //清空之前的查询结果
+        var table = document.getElementById("materialTable");//获得要操作的table对象
+        for(let k=1;k<=11;k++){
+            if(table.rows[k].cells.length>1){
+                table.rows[k].deleteCell (1);
+            }
+        }
+
+        console.log("localStorage.getItem('curUserConfPath'): "+localStorage.getItem('curUserConfPath'));
+        $.ajax({
+            type:'POST',
+            url:'http://'+window.location.host+'/fabricProject_war_exploded/queryMaterial',
+            contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+            data:{userConfigPath : localStorage.getItem('curUserConfPath'),materialId:id,SelectedChannel:selectedChannel},
+            success:function(data){
+                console.log("请求成功");
+                console.log(data);
+                var msg = eval(data);
+                if(msg.length!=0){//返回不为空
+                    var jsonObj = msg[0];
+                    $("#purchasecode").append("<td>"+jsonObj.purchasecode+"</td>");
+                    $("#materialcode").append("<td>"+jsonObj.materialcode+"</td>");
+                    $("#description").append("<td>"+jsonObj.description+"</td>");
+                    $("#owner").append("<td>"+jsonObj.owner+"</td>");
+                    $("#purchasenumber").append("<td>"+jsonObj.purchasenumber+"</td>");
+                    $("#currentnumber").append("<td>"+jsonObj.currentnumber+"</td>");
+                    $("#price").append("<td>"+jsonObj.price+"</td>");
+                    $("#settlementmethod").append("<td>"+jsonObj.settlementmethod+"</td>");
+                    $("#settlementdatatime").append("<td>"+jsonObj.settlementdatatime+"</td>");
+                    $("#warehousereservoir").append("<td>"+jsonObj.warehousereservoir+"</td>");
+                    $("#warehouseposition").append("<td>"+jsonObj.warehouseposition+"</td>");
+                    $("#materialTitle").text("查询结果");
+                }else{
+                    $("#materialTitle").text("查询结果：抱歉，当前用户无权查询 或 查询的物料id不存在");
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown){
+                console.log(errorThrown);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log("请求失败");
+            }
+        });
+    }
+</script>
+
+<script>
+    //查询汽车信息
+    function sendCarid(){
+        $("#carTitle").text("查询中，请等待。。。");
+        var id = document.getElementById("carID").value;
+
+        //select选中的索引
+        var index = document.getElementById("seletCarChannel").selectedIndex;
+        //新加一个选择的通道
+        var selectedChannel = document.getElementById("seletCarChannel").options[index].text;
+        console.log(selectedChannel);
+
+        //清空之前的查询结果
+        var table = document.getElementById("carTable");//获得要操作的table对象
+        for(let k=1;k<=4;k++){
+            if(table.rows[k].cells.length>1){
+                table.rows[k].deleteCell (1);
+            }
+        }
+        $.ajax({
+            type:'POST',
+            url:'http://'+window.location.host+'/fabricProject_war_exploded/queryCar',
+            contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+            data:{userConfigPath : localStorage.getItem('curUserConfPath'),carId:id,SelectedChannel:selectedChannel},
+            success:function(data){
+                console.log("请求成功");
+                console.log(data);
+                var msg = eval(data);
+                if(msg.length!=0){//返回不为空
+                    var jsonObj = msg[0];
+                    $("#vincode").append("<td>"+jsonObj.vincode+"</td>");
+                    $("#make").append("<td>"+jsonObj.make+"</td>");
+                    $("#ownername").append("<td>"+jsonObj.ownername+"</td>");
+                    $("#ownerphone").append("<td>"+jsonObj.ownerphone+"</td>");
+                    $("#carTitle").text("查询结果");
+                }else{
+                    $("#carTitle").text("查询结果：抱歉，当前用户无权查询 或 查询的汽车id不存在");
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown){
+                console.log(errorThrown);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log("请求失败");
+            }
+        });
+    }
+</script>
+
+
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    <header>
+        <!-- logo -->
+        <div class="am-fl tpl-header-logo">
+            <a href="javascript:;"><img src="assets/img/logo.png" alt=""></a>
+        </div>
+        <!-- 右侧内容 -->
+        <div class="tpl-header-fluid">
+            <!-- 侧边切换 -->
+            <div class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>
+
+                </span>
+            </div>
+            <!-- 搜索 -->
+            <div class="am-fl tpl-header-search">
+                <form class="tpl-header-search-form" action="javascript:;">
+                    <button class="tpl-header-search-btn am-icon-search"></button>
+                    <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
+                </form>
+            </div>
+            <!-- 其它功能-->
+            <div class="am-fr tpl-header-navbar">
+                <ul>
+                    <!-- 欢迎语 -->
+                    <li class="am-text-sm tpl-header-navbar-welcome">
+                        <a href="javascript:;">欢迎你, <span>Amaze UI</span> </a>
+                    </li>
+
+                    <!-- 新邮件 -->
+                    <li class="am-dropdown tpl-dropdown" data-am-dropdown>
+                        <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
+                            <i class="am-icon-envelope"></i>
+                            <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                        </a>
+                        <!-- 弹出列表 -->
+                        <ul class="am-dropdown-content tpl-dropdown-content">
+                            <li class="tpl-dropdown-menu-messages">
+                                <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                    <div class="menu-messages-ico">
+                                        <img src="assets/img/user04.png" alt="">
+                                    </div>
+                                    <div class="menu-messages-time">
+                                        3小时前
+                                    </div>
+                                    <div class="menu-messages-content">
+                                        <div class="menu-messages-content-title">
+                                            <i class="am-icon-circle-o am-text-success"></i>
+                                            <span>夕风色</span>
+                                        </div>
+                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
+                                        <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="tpl-dropdown-menu-messages">
+                                <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                    <div class="menu-messages-ico">
+                                        <img src="assets/img/user02.png" alt="">
+                                    </div>
+                                    <div class="menu-messages-time">
+                                        5天前
+                                    </div>
+                                    <div class="menu-messages-content">
+                                        <div class="menu-messages-content-title">
+                                            <i class="am-icon-circle-o am-text-warning"></i>
+                                            <span>禁言小张</span>
+                                        </div>
+                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
+                                        <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="tpl-dropdown-menu-messages">
+                                <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
+                                    <i class="am-icon-circle-o"></i> 进入列表…
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- 新提示 -->
+                    <li class="am-dropdown" data-am-dropdown>
+                        <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
+                            <i class="am-icon-bell"></i>
+                            <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
+                        </a>
+
+                        <!-- 弹出列表 -->
+                        <ul class="am-dropdown-content tpl-dropdown-content">
+                            <li class="tpl-dropdown-menu-notifications">
+                                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                    <div class="tpl-dropdown-menu-notifications-title">
+                                        <i class="am-icon-line-chart"></i>
+                                        <span> 有6笔新的销售订单</span>
+                                    </div>
+                                    <div class="tpl-dropdown-menu-notifications-time">
+                                        12分钟前
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="tpl-dropdown-menu-notifications">
+                                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                    <div class="tpl-dropdown-menu-notifications-title">
+                                        <i class="am-icon-star"></i>
+                                        <span> 有3个来自人事部的消息</span>
+                                    </div>
+                                    <div class="tpl-dropdown-menu-notifications-time">
+                                        30分钟前
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="tpl-dropdown-menu-notifications">
+                                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                    <div class="tpl-dropdown-menu-notifications-title">
+                                        <i class="am-icon-folder-o"></i>
+                                        <span> 上午开会记录存档</span>
+                                    </div>
+                                    <div class="tpl-dropdown-menu-notifications-time">
+                                        1天前
+                                    </div>
+                                </a>
+                            </li>
+
+
+                            <li class="tpl-dropdown-menu-notifications">
+                                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                    <i class="am-icon-bell"></i> 进入列表…
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- 退出 -->
+                    <li class="am-text-sm">
+                        <a href="javascript:;">
+                            <span class="am-icon-sign-out"></span> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+    <!-- 风格切换 -->
+    <div class="tpl-skiner">
+        <div class="tpl-skiner-toggle am-icon-cog">
+        </div>
+        <div class="tpl-skiner-content">
+            <div class="tpl-skiner-content-title">
+                选择主题
+            </div>
+            <div class="tpl-skiner-content-bar">
+                <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                <span class="skiner-color skiner-black" data-color="theme-black"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 侧边导航栏 -->
+    <div class="left-sidebar">
+        <!-- 用户信息 -->
+        <div class="tpl-sidebar-user-panel">
+            <div class="tpl-user-panel-slide-toggleable">
+                <div class="tpl-user-panel-profile-picture">
+                    <img src="assets/img/user06.png" alt="">
+                </div>
+                <span id="curUserName" class="user-panel-logged-in-text" style="color: #03a9f3;margin-bottom: 10px">
+
+                </span>
+                <div class="tpl-user-panel-action-link" id="myEnterprise">
+                </div>
+                <div class="tpl-user-panel-action-link" id="myAuthority">
+                </div>
+            </div>
+        </div>
+
+        <!-- 菜单 -->
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-link">
+                <a href="index.html">
+                    <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="userLogin.html" class="sidebar-nav-sub-title">
+                    <i class="am-icon-user sidebar-nav-link-logo"></i> 切换用户
+                </a>
+            </li>
+
+            <li class="sidebar-nav-link">
+                <a href="channelOperation.html">
+                    <i class="am-icon-clone sidebar-nav-link-logo"></i> 通道管理操作
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="peerOperation.html">
+                    <i class="am-icon-chain sidebar-nav-link-logo"></i> 节点管理
+
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="deployChaincode.html">
+                    <i class="am-icon-sign-in sidebar-nav-link-logo"></i> 节点部署合约管理
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a class="sidebar-nav-sub-title" href="chaincodeMsg.html">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 合约函数信息
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a class="sidebar-nav-sub-title">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 合约调用演示
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+                    <li class="sidebar-nav-link">
+                        <a href="queryChaincode.html" class="active">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 链上数据查询
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="supplyChaincode.html">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 供应链业务
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="#">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 营销链业务
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-link">
+                        <a href="#">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 服务链业务
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- 内容区域 -->
+    <div class="tpl-content-wrapper" style="background-color: aliceblue">
+
+        <div class="row-content am-cf">
+            <!----物料信息查询---->
+            <div class="row  am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title  am-cf" style="font-weight: bold;color: #0c80ba;font-size: large">物料信息查询</div>
+                        </div>
+                        <div class="widget-body  am-fr">
+                            <form class="am-form" id="queryMaterialForm">
+
+                                <div style="width: 30%;margin-bottom: 25px;margin-left:1.5%;">
+                                    <div class="tpl-table-list-select">
+                                        <select id="seletMaterialChannel">
+                                            <option>请选择要查询的供应链</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group am-u-sm-4">
+                                    <label for="materialID">查询物料ID</label>
+                                    <input type="text" class="am-radius" id="materialID" value="MATERIAL0">
+                                </div>
+                                <div class="am-form-group am-u-sm-12">
+                                    <button type="button" class="am-btn am-btn-primary" id="getMaterial" onclick="sendMid()">查询</button>
+                                </div>
+                                <div class="am-form-group" style="color: black">
+                                    <div class="am-form-group am-u-sm-10">
+                                        <div class="card-box">
+                                            <table class="am-table am-table-bordered" id="materialTable">
+                                                <thead>
+                                                <tr>
+                                                    <th id="materialTitle">查询结果</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="materialMsg">
+                                                <tr id="purchasecode">
+                                                    <td>订单编号</td>
+                                                </tr>
+                                                <tr id="materialcode">
+                                                    <td>物料编号</td>
+                                                </tr>
+                                                <tr id="description">
+                                                    <td>物料描述</td>
+                                                </tr>
+                                                <tr id="owner">
+                                                    <td>采购企业</td>
+                                                </tr>
+                                                <tr id="purchasenumber">
+                                                    <td>采购数量</td>
+                                                </tr>
+                                                <tr id="currentnumber">
+                                                    <td>当前数量</td>
+                                                </tr>
+                                                <tr id="price">
+                                                    <td>单价</td>
+                                                </tr>
+                                                <tr id="settlementmethod">
+                                                    <td>结算方式</td>
+                                                </tr>
+                                                <tr id="settlementdatatime">
+                                                    <td>结算日期</td>
+                                                </tr>
+                                                <tr id="warehousereservoir">
+                                                    <td>所在库区</td>
+                                                </tr>
+                                                <tr id="warehouseposition">
+                                                    <td>所在仓位</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!----汽车信息查询---->
+            <div class="row  am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title  am-cf" style="font-weight: bold;color: #0c80ba;font-size: large">整车信息查询</div>
+                        </div>
+                        <div class="widget-body  am-fr">
+                            <form class="am-form">
+
+                                <div style="width: 30%;margin-bottom: 25px;margin-left:1.5%;">
+                                    <div class="tpl-table-list-select">
+                                        <select id="seletCarChannel">
+                                            <option>请选择要查询的供应链</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group am-u-sm-4">
+                                    <label for="carID">查询整车ID</label>
+                                    <input type="text" class="am-radius" id="carID" value="CAR0">
+                                </div>
+                                <div class="am-form-group am-u-sm-12">
+                                    <button type="button" class="am-btn am-btn-primary" id="getCar" onclick="sendCarid()">查询</button>
+                                </div>
+                                <div class="am-form-group" style="color: black">
+                                    <div class="am-form-group am-u-sm-10">
+                                        <div class="card-box">
+                                            <table class="am-table am-table-bordered" id="carTable">
+                                                <thead>
+                                                <tr>
+                                                    <th id="carTitle">查询结果</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr id="vincode">
+                                                    <td>汽车Vin号</td>
+                                                </tr>
+                                                <tr id="make">
+                                                    <td>制造商名称</td>
+                                                </tr>
+                                                <tr id="ownername">
+                                                    <td>车主</td>
+                                                </tr>
+                                                <tr id="ownerphone">
+                                                    <td>车主电话</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/amazeui.datatables.min.js"></script>
+<script src="assets/js/dataTables.responsive.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>
+
+

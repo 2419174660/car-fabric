@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>区块链管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Nazox is a fully featured premium Vuejs admin dashboard template built on top of awesome Bootstrap 4.4.1" name="description" />
+    <meta content="ThemesDesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body data-sidebar="dark">
+
+<!-- Begin page -->
+<div id="root">
+
+    <header id="page-topbar">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <!-- LOGO -->
+                <div class="navbar-brand-box">
+
+                    <a href="index.html" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="assets/images/logo-sm-light.png" alt="" height="22">
+                            </span>
+                        <span class="logo-lg">
+                                <img src="assets/images/logo-light.png" alt="" height="20">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="d-flex">
+
+                <div class="d-inline-block">
+                    <h5><span class="badge badge-danger float-right">v1.0.0</span></h5>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="vertical-menu">
+        <div>
+                <span style="margin-top: 50px;margin-left: 15px">
+                    <img src="assets/images/user06.png" alt="" height="65" style="border-radius:100%">
+                </span>
+            <span id="curUserName" style="color: #03a9f3;margin-bottom: 10px;margin-left: 10px;font-size: medium">用户{{curUserName}}</span>
+        </div>
+        <div data-simplebar class="h-100">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title">用户</li>
+
+                    <li>
+                        <a href="index.html" class="waves-effect">
+                            <i class="mdi mdi-file-document-box-outline"></i>
+                            <span>首页</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="userLogin1.html" class=" waves-effect">
+                            <i class="mdi mdi-settings-outline"></i>
+                            <span>用户登录</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title">管理员</li>
+
+                    <li>
+                        <a href="channelManage1.html" class=" waves-effect">
+                            <i class="mdi mdi-flip-horizontal"></i>
+                            <span>区块链管理</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="peerManage1.html" class=" waves-effect">
+                            <i class="mdi mdi-flip-vertical"></i>
+                            <span>节点管理</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="chaincodeManage1.html" class=" waves-effect">
+                            <i class="mdi mdi-flip-horizontal"></i>
+                            <span>合约部署</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-title">合约调用</li>
+
+                    <li>
+                        <a href="search1.html" class=" waves-effect">
+                            <i class="mdi mdi-wechat"></i>
+                            <span>业务数据查询</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="supplychain1.html" class=" waves-effect">
+                            <i class="mdi mdi-web"></i>
+                            <span>供应链业务</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="emptypage.html" class=" waves-effect">
+                            <i class="mdi mdi-format-list-bulleted"></i>
+                            <span>营销链业务</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="emptypage.html" class=" waves-effect">
+                            <i class="mdi mdi-weather-night"></i>
+                            <span>服务链业务</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Sidebar -->
+        </div>
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="p-lg-3">
+                            <!--===================================主页内容写这里-===================================-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane" id="aa">
+                                                        <h4 class="card-title">当前区块链信息</h4>
+                                                        <p class="card-title-desc"></p>
+                                                    </div>
+                                                    <div class="table-responsive mt-3">
+                                                        <div class="form-group">
+                                                            <label >选择查询的区块链</label>
+                                                            <select class="custom-select" v-model="channelName">
+                                                                <option selected>supplychannelone</option>
+                                                                <option>supplychanneltwo</option>
+                                                                <option>supplychannelthree</option>
+                                                            </select>
+                                                        </div>
+                                                        <p v-if="this.isPeerNull" style="font-size: medium">该区块链不存在任何节点信息！</p>
+                                                        <table
+                                                                class="table table-centered datatable dt-responsive nowrap"
+                                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                                                v-if="!this.isPeerNull"
+                                                        >
+                                                            <thead class="thead-light">
+                                                            <tr>
+                                                                <th>节点名称</th>
+                                                                <th>节点IP</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item, index) in peerList" :key="index">
+                                                                <td>{{item.name}}</td>
+                                                                <td>{{item.url}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end padding-->
+
+                    </div>
+                    <!--end card body-->
+                </div> <!-- end card-->
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="p-lg-3">
+                            <!--===================================主页内容写这里-===================================-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane" id="metadata">
+                                                        <h4 class="card-title">新建一条区块链</h4>
+                                                        <p class="card-title-desc"></p>
+
+                                                        <form>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label >选择区块链配置文件</label>
+                                                                        <select class="custom-select" v-model="chaincodeName">
+                                                                            <option selected>supplychannelone.properties</option>
+                                                                            <option>supplychanneltwo.properties</option>
+                                                                            <option>supplychannelthree.properties</option>
+                                                                            <option>marketingchannel.properties</option>
+                                                                            <option>servicechannel.properties</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </form>
+
+                                                        <div class="text-center mt-4">
+                                                            <button
+                                                                    @click="create"
+                                                                    class="btn btn-primary mr-4 waves-effect waves-light"
+                                                                    type="button"
+                                                            >  创建区块链  </button>
+                                                            <button type="button" class="btn btn-light waves-effect">  取消操作  </button>
+                                                        </div>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                            <form-wizard color="#5664d2">
+                                                <tab-content title="Meta Data">
+                                                    <div class="tab-pane">
+                                                        <h4 class="card-title">创建结果</h4>
+                                                        <p class="card-title-desc" style="color: #03a9f3">{{createResult}}</p>
+                                                    </div>
+                                                </tab-content>
+                                            </form-wizard>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end padding-->
+
+                    </div>
+                    <!--end card body-->
+                </div> <!-- end card-->
+
+            </div> <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-right d-none d-sm-block">
+                            价值链协同区块链演示界面
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- JAVASCRIPT -->
+<script src="assets/libs/jquery/jquery.min.js"></script>
+<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="assets/libs/simplebar/simplebar.min.js"></script>
+<script src="assets/libs/node-waves/waves.min.js"></script>
+<script src="assets/js/vue.js"></script>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/axios.min.js"></script>
+
+<script>
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            curUserName:'',
+            curUserAuth:'',
+            channelName:'supplychannelone',
+            chaincodeName:'supplychannelone.properties',
+            chaincodePath:'',
+            peerList:[],
+            isPeerNull:true,
+            createResult:''
+        },
+        watch:{
+            channelName:{
+                immediate: true,
+                handler(newValue,oldValue){
+                    this.getChannelMsg();
+                }
+            },
+            chaincodeName:{
+                immediate: true,
+                handler(newValue,oldValue){
+                    if(newValue==="supplychannelone.properties"){
+                        this.chaincodePath='/Users/zhaoyuting/IdeaProjects/fabricProject/src/main/resources/network_resources/channel_properties/supplychannelone.properties';
+                    }else if(newValue==="supplychanneltwo.properties"){
+                        this.chaincodePath='/Users/zhaoyuting/IdeaProjects/fabricProject/src/main/resources/network_resources/channel_properties/supplychanneltwo.properties';
+                    }else if(newValue==="supplychannelthree.properties"){
+                        this.chaincodePath='/Users/zhaoyuting/IdeaProjects/fabricProject/src/main/resources/network_resources/channel_properties/supplychannelthree.properties';
+                    }else if(newValue==="marketingchannel.properties"){
+                        this.chaincodePath='/Users/zhaoyuting/IdeaProjects/fabricProject/src/main/resources/network_resources/channel_properties/marketingchannel.properties';
+                    }else if(newValue==="servicechannel.properties"){
+                        this.chaincodePath='/Users/zhaoyuting/IdeaProjects/fabricProject/src/main/resources/network_resources/channel_properties/servicechannel.properties';
+                    }else{
+                        this.chaincodePath='';
+                    }
+                }
+            }
+        },
+        methods:{
+            getCurUser:function(){
+                if(localStorage.getItem("curMspid")!=null){
+                    this.curUserName = localStorage.getItem("curUserName");
+                    this.curUserAuth = localStorage.getItem("curAuthority");
+                }else{
+                    //初始化用户信息
+                    this.curUserName = '未登录用户';
+                    localStorage.setItem("curUserName", "未登录用户");
+                    localStorage.setItem("curMspid", "请登录");
+                    localStorage.setItem("curAuthority", "请登录");
+                    localStorage.setItem("curUserConfPath", "");
+                }
+            },
+            getChannelMsg:function (){
+                var _this = this;
+                //从后端请求数据并展示
+                axios({
+                    method:'post',
+                    url:'http://'+window.location.host+'/fabricProject_war_exploded/getChannelMsg',
+                    contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                    params:{
+                        curUserConfPath : localStorage.getItem('curUserConfPath'),
+                        channelName : _this.channelName
+                    }
+                }).then(function (data) {
+                    console.log("请求成功");
+                    var jsonData = eval(data).data;
+                    if(jsonData!=null){
+                        _this.peerList = jsonData;
+                        _this.isPeerNull = false;
+                    }else{
+                        _this.isPeerNull = true;
+                    }
+                })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            create(){
+                //创建通道
+                var _this = this;
+                if(_this.curUserAuth === 'organization-admin'){
+                    _this.failMsg = '请切换为区块链管理员用户ChannelAdminOrg_Admin1，当前为组织管理员！';
+                }else if(_this.curUserName === '未登录用户'){
+                    _this.failMsg = '请先登录！';
+                }else if(_this.curUserAuth === 'organization-user'){
+                    _this.failMsg = '请切换为区块链管理员用户ChannelAdminOrg_Admin1，当前为普通用户！';
+                }else if(_this.curUserAuth === 'channel-admin'){
+                    axios({
+                        method:'post',
+                        url:'http://'+window.location.host+'/fabricProject_war_exploded/createChannel',
+                        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                        params:{
+                            userpath : localStorage.getItem('curUserConfPath'),
+                            channelpath : _this.chaincodePath
+                        }
+                    }).then(function (data) {
+                        console.log("请求成功");
+                        jsonData = eval(data).data;
+                        if(jsonData===''){
+                            _this.createResult = "创建失败！出错或区块链已存在"
+                        }else{
+                            _this.createResult = "创建成功！区块链信息："+jsonData;
+                        }
+                    })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        });
+                }
+            }
+        },
+        mounted(){
+            this.getCurUser();
+        }
+    })
+</script>
+
+</body>
+
+</html>

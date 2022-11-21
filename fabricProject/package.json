@@ -1,0 +1,7 @@
+{
+  "name": "fabricProject",
+  "version": "1.0.0",
+  "dependencies": {
+    "store": "^2.0.12"
+  }
+}

@@ -1,0 +1,92 @@
+# ---------------------------------------------------------------------------
+# "OrdererOrgs" - Definition of organizations managing orderer nodes
+# ---------------------------------------------------------------------------
+OrdererOrgs:
+  - Name: Orderer
+    Domain: example.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
+    Specs:
+      - Hostname: orderer
+#        SANS:
+#          - 127.0.0.1
+# ---------------------------------------------------------------------------
+# "PeerOrgs" - Definition of organizations managing peer nodes
+# ---------------------------------------------------------------------------
+PeerOrgs:
+  - Name: ChannelAdminOrg
+    Domain: ChannelAdminOrg.example.com
+    CA:
+      Country: US
+      Province: California
+      Locality: San Francisco
+    Template:
+      Count: 2
+
+  - Name: Enterprise01
+    Domain: org1.example.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+  - Name: Enterprise02
+    Domain: org2.example.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+  - Name: Enterprise03
+    Domain: org3.example.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+  - Name: Enterprise04
+    Domain: org4.example.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+  - Name: Enterprise05
+    Domain: org5.example.com
+    CA:
+        Country: US
+        Province: California
+        Locality: San Francisco
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+
+  - Name: Enterprise06
+    Domain: org6.example.com
+    CA:
+      Country: US
+      Province: California
+      Locality: San Francisco
+    Template:
+      Count: 2
+    Users:
+      Count: 1
